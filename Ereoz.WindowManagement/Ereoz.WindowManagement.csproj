@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net5.0-windows;net40</TargetFrameworks>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageId>Ereoz.WindowManagement</PackageId>
+		<Title>WindowManagement</Title>
+		<Authors>Ereoz</Authors>
+		<Description>Services for managing the state of WPF windows</Description>
+		<Copyright>Denis Plotnikov</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Ereoz/Ereoz.WindowManagement</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Ereoz/Ereoz.WindowManagement</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="." />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Ereoz.DataStorage" Version="0.*" />
+		<PackageReference Include="Ereoz.Serialization" Version="0.*" />
+	</ItemGroup>
+
+</Project>
