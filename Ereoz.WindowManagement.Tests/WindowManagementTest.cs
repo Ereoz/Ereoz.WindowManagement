@@ -8,7 +8,7 @@ namespace Ereoz.WindowManagement.Tests
     public class WindowManagementTest : IClassFixture<MainWindowFixture>
     {
         private readonly MainWindowFixture _fixture;
-        private readonly string _fileName = "WindowLocation.json";
+        private readonly string _fileName = "MainWindow.json";
 
         private readonly string firstState = "{\r\n  \"Left\": 200,\r\n  \"Top\": 150,\r\n  \"Width\": 640,\r\n  \"Height\": 480,\r\n  \"IsMaximized\": false\r\n}";
         private readonly string secondState = "{\r\n  \"Left\": 250,\r\n  \"Top\": 100,\r\n  \"Width\": 320,\r\n  \"Height\": 240,\r\n  \"IsMaximized\": false\r\n}";

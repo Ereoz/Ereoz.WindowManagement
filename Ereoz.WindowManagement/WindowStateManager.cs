@@ -14,14 +14,15 @@ namespace Ereoz.WindowManagement
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowStateManager"/> class with a specified window and <see cref="WindowLocation"/>.
-        /// If <see cref="WindowLocation"/> is null, then <see cref="WindowLocation"/> will be created with the <see cref="SimpleJson"/> serializer.
+        /// If <see cref="WindowLocation"/> is null, then <see cref="WindowLocation"/> will be created with the <see cref="SimpleJson"/> serializer
+        /// with file name corresponding to the name of the transmitted window.
         /// </summary>
         /// <param name="window">The window whose state will be managed.</param>
         /// <param name="location">Implementation of the saved state (position and dimensions) of the window.</param>
         public WindowStateManager(Window window, WindowLocation location = null)
         {
             _window = window;
-            _location = location ?? new WindowLocation(new SimpleJson());
+            _location = location ?? new WindowLocation(new SimpleJson(), window.GetType().Name + ".json");
 
             _window.Left = _location.Left;
             _window.Top = _location.Top;
