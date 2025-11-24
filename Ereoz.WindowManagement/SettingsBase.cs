@@ -2,7 +2,6 @@
 using Ereoz.Abstractions.Serialization;
 using Ereoz.DataStorage;
 using System;
-using System.ComponentModel;
 
 namespace Ereoz.WindowManagement
 {
@@ -11,29 +10,34 @@ namespace Ereoz.WindowManagement
     /// This class is responsible for loading and saving window location data.
     /// </summary>
     [Serializable]
-    public class WindowLocation : StoredState
+    public class SettingsBase : StoredState
     {
         /// <inheritdoc/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public WindowLocation() { }
+        public SettingsBase() { }
 
         /// <inheritdoc/>
-        public WindowLocation(IStringSerializer serializer) : base(serializer) { }
+        public SettingsBase(string file) : base(file, null) { }
 
         /// <inheritdoc/>
-        public WindowLocation(IBinarySerializer serializer) : base(serializer) { }
+        public SettingsBase(string file, ILogger logger) : base(file, logger) { }
 
         /// <inheritdoc/>
-        public WindowLocation(IStringSerializer serializer, string fileName) : base(serializer, fileName) { }
+        public SettingsBase(IStringSerializer serializer) : base(serializer) { }
 
         /// <inheritdoc/>
-        public WindowLocation(IBinarySerializer serializer, string fileName) : base(serializer, fileName) { }
+        public SettingsBase(IBinarySerializer serializer) : base(serializer) { }
 
         /// <inheritdoc/>
-        public WindowLocation(IStringSerializer serializer, string fileName, ILogger logger) : base(serializer, fileName, logger) { }
+        public SettingsBase(IStringSerializer serializer, string fileName) : base(serializer, fileName) { }
 
         /// <inheritdoc/>
-        public WindowLocation(IBinarySerializer serializer, string fileName, ILogger logger) : base(serializer, fileName, logger) { }
+        public SettingsBase(IBinarySerializer serializer, string fileName) : base(serializer, fileName) { }
+
+        /// <inheritdoc/>
+        public SettingsBase(IStringSerializer serializer, string fileName, ILogger logger) : base(serializer, fileName, logger) { }
+
+        /// <inheritdoc/>
+        public SettingsBase(IBinarySerializer serializer, string fileName, ILogger logger) : base(serializer, fileName, logger) { }
 
         /// <summary>
         /// Horizontal position (X-coordinate) of the window's left edge.

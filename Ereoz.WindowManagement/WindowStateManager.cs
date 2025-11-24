@@ -10,24 +10,25 @@ namespace Ereoz.WindowManagement
     public class WindowStateManager
     {
         private readonly Window _window;
-        private readonly WindowLocation _location;
+        private readonly SettingsBase _settingsBase;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowStateManager"/> class with a specified window and <see cref="WindowLocation"/>.
-        /// If <see cref="WindowLocation"/> is null, then <see cref="WindowLocation"/> will be created with the <see cref="SimpleJson"/> serializer
+        /// Initializes a new instance of the <see cref="WindowStateManager"/> class with a specified window and <see cref="SettingsBase"/>.
+        /// If <see cref="SettingsBase"/> is null, then <see cref="SettingsBase"/> will be created with the <see cref="SimpleJson"/> serializer
         /// with file name corresponding to the name of the transmitted window.
         /// </summary>
         /// <param name="window">The window whose state will be managed.</param>
-        /// <param name="location">Implementation of the saved state (position and dimensions) of the window.</param>
-        public WindowStateManager(Window window, WindowLocation location = null)
+        /// <param name="settingsBase">Implementation of the saved state (position and dimensions) of the window.</param>
+        public WindowStateManager(Window window, SettingsBase settingsBase = null)
         {
             _window = window;
-            _location = location ?? new WindowLocation(new SimpleJson(), window.GetType().Name + ".json");
+            _settingsBase = settingsBase ?? new SettingsBase(new SimpleJson(), window.GetType().Name + ".json");
+            _settingsBase.LoadState();
 
-            _window.Left = _location.Left;
-            _window.Top = _location.Top;
-            _window.Width = _location.Width;
-            _window.Height = _location.Height;
+            _window.Left = _settingsBase.Left;
+            _window.Top = _settingsBase.Top;
+            _window.Width = _settingsBase.Width;
+            _window.Height = _settingsBase.Height;
 
             _window.Loaded += Window_Loaded;
             _window.Closed += Window_Closed;
@@ -41,7 +42,7 @@ namespace Ereoz.WindowManagement
                 _window.Left = 100;
             }
 
-            if (_location.IsMaximized)
+            if (_settingsBase.IsMaximized)
                 _window.WindowState = WindowState.Maximized;
         }
 
@@ -49,14 +50,14 @@ namespace Ereoz.WindowManagement
         {
             if (_window.WindowState != WindowState.Maximized)
             {
-                _location.Left = _window.Left;
-                _location.Top = _window.Top;
-                _location.Width = _window.Width;
-                _location.Height = _window.Height;
+                _settingsBase.Left = _window.Left;
+                _settingsBase.Top = _window.Top;
+                _settingsBase.Width = _window.Width;
+                _settingsBase.Height = _window.Height;
             }
 
-            _location.IsMaximized = _window.WindowState == WindowState.Maximized ? true : false;
-            _location.SaveState();
+            _settingsBase.IsMaximized = _window.WindowState == WindowState.Maximized ? true : false;
+            _settingsBase.SaveState();
         }
 
         private bool CheckWindowVisibilityOnAtLeastOneScreens()
