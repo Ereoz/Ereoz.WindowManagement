@@ -1,5 +1,6 @@
 ﻿using Ereoz.Serialization.Json;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace Ereoz.WindowManagement
@@ -19,10 +20,12 @@ namespace Ereoz.WindowManagement
         /// </summary>
         /// <param name="window">The window whose state will be managed.</param>
         /// <param name="settingsBase">Implementation of the saved state (position and dimensions) of the window.</param>
-        public WindowStateManager(Window window, SettingsBase settingsBase = null)
+        public WindowStateManager(Window window, SettingsBase settingsBase = null, string fileLocation = null)
         {
             _window = window;
-            _settingsBase = settingsBase ?? new SettingsBase(new SimpleJson(), window.GetType().Name + ".json");
+            _settingsBase = settingsBase ?? new SettingsBase(
+                new SimpleJson(),
+                string.IsNullOrWhiteSpace(fileLocation) ? window.GetType().Name + ".json" : Path.Combine(fileLocation, window.GetType().Name + ".json"));
             _settingsBase.LoadState();
 
             _window.Left = _settingsBase.Left;
